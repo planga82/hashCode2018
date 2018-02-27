@@ -10,6 +10,9 @@ public class EvolucionPizza {
 	Celda[][] base;
 	List<Slice> slicesSeleccionados;
 	
+	public EvolucionPizza(){
+		super();
+	}
 	public EvolucionPizza(Pizza pizza) {
 		this.cols = pizza.cols;
 		this.rows = pizza.rows;
@@ -42,5 +45,22 @@ public class EvolucionPizza {
 		this.base = base;
 	}
 	
+	public EvolucionPizza clone(){
+		EvolucionPizza ev = new EvolucionPizza();
+		ev.cols = this.cols;
+		ev.rows = this.rows;
+		ev.base = this.base.clone();
+		ev.slicesSeleccionados =  (ArrayList)((ArrayList<Slice>)this.slicesSeleccionados).clone();
+		return ev;
+	}
+	
+	public void actualiza(Slice s){
+		this.slicesSeleccionados.add(s);
+		for (int i = s.posRowIni; i < s.posRowIni + s.rows; i++) {
+			for (int j = s.posColIni; j < s.posColIni + s.cols; j++) {
+				this.base[i][j].withSlice = true;
+			}
+		}
+	}
 	
 }

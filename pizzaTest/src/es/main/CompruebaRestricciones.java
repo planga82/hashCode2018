@@ -4,7 +4,7 @@ public class CompruebaRestricciones {
 
 	
 	
-	public boolean comprueba(EvolucionPizza estadoPizza, Slice slice, int numIngrdientsPerSlice) {
+	public static boolean comprueba(EvolucionPizza estadoPizza, Slice slice, int numIngrdientsPerSlice) {
 		
 		return !seSalePizza(estadoPizza, slice) && 
 				!pisaOtroSlice(estadoPizza, slice) &&
@@ -12,12 +12,12 @@ public class CompruebaRestricciones {
 	}
 	
 	//comprueba que no se sale de la pizza
-	private boolean seSalePizza(EvolucionPizza estadoPizza, Slice slice) {
+	private static boolean seSalePizza(EvolucionPizza estadoPizza, Slice slice) {
 		return (slice.posRowIni + slice.rows > estadoPizza.rows) ||
 				(slice.posColIni + slice.cols > estadoPizza.cols); 
 	}
 	//comprueba que no pisa otro slice
-	private boolean pisaOtroSlice(EvolucionPizza estadoPizza, Slice slice) {
+	private static boolean pisaOtroSlice(EvolucionPizza estadoPizza, Slice slice) {
 		for (int i = 0; i < slice.rows; i++) {
 			for (int j = 0; j < slice.cols; j++) {
 				int row = slice.posRowIni+i;
@@ -31,7 +31,7 @@ public class CompruebaRestricciones {
 	}
 	
 	//Contiene el numero de ingredientes adecuado
-		private boolean contieneIngredientesAdecuados(EvolucionPizza estadoPizza, Slice slice, int numIngrdientsPerSlice) {
+		private static boolean contieneIngredientesAdecuados(EvolucionPizza estadoPizza, Slice slice, int numIngrdientsPerSlice) {
 			
 			int tomato =0;
 			int mushroom=0;
