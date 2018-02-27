@@ -81,4 +81,15 @@ public class EvolucionPizza {
 		return puntos;
 	}
 	
+	public List<String> toLineasFichero(){
+		ArrayList<String> ret = new ArrayList<>();
+		ret.add(String.valueOf(slicesSeleccionados.size()));
+		for (Slice slice : slicesSeleccionados) {
+			String linea = String.valueOf(slice.posRowIni) + " " + String.valueOf(slice.posColIni) + " " +
+					 		String.valueOf(slice.posRowIni + slice.rows -1) + " " + String.valueOf(slice.posColIni + slice.cols-1); 
+			ret.add(linea);
+		}
+		return ret;
+	}
+	
 }
