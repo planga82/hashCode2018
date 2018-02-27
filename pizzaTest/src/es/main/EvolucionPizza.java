@@ -49,7 +49,13 @@ public class EvolucionPizza {
 		EvolucionPizza ev = new EvolucionPizza();
 		ev.cols = this.cols;
 		ev.rows = this.rows;
-		ev.base = this.base.clone();
+		ev.base = new Celda[this.rows][this.cols];
+		for (int i = 0; i < this.rows; i++) {
+			for (int j = 0; j < this.cols; j++) {
+				ev.base[i][j] = new Celda(this.base[i][j].getIngrediente(),this.base[i][j].withSlice);
+			}
+		}
+		
 		ev.slicesSeleccionados =  (ArrayList)((ArrayList<Slice>)this.slicesSeleccionados).clone();
 		return ev;
 	}
@@ -61,6 +67,18 @@ public class EvolucionPizza {
 				this.base[i][j].withSlice = true;
 			}
 		}
+	}
+	
+	public int damePuntuacion(){
+		int puntos = 0;
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
+				if(this.base[i][j].withSlice){
+					puntos++;
+				}
+			}
+		}
+		return puntos;
 	}
 	
 }

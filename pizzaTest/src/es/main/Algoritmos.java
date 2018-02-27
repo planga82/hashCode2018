@@ -5,30 +5,44 @@ import java.util.List;
 
 public class Algoritmos {
 
-	public void fuerzaBruta(Pizza pizza) {
+	public EvolucionPizza fuerzaBruta(Pizza pizza) {
 		EvolucionPizza evolucion = new EvolucionPizza(pizza);
-		List<EvolucionPizza> arbolEvoluciones = new ArrayList<>();
+		ArrayList<EvolucionPizza> arbolEvoluciones = new ArrayList<>();
 		arbolEvoluciones.add(evolucion);
 		int rows = evolucion.rows;
 		int cols = evolucion.cols;
-		for (int i = 1; i <= rows; i++) {
-			for (int j = 1; j <= cols; j++) {
-				List<EvolucionPizza> arbolEvoluciones2 = new ArrayList<>();
+		ArrayList<EvolucionPizza> arbolEvoluciones2 = new ArrayList<>();
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
 				for (EvolucionPizza evolucionPizza : arbolEvoluciones) {
 					List<Slice> slices = GeneradorSlice.generaSlice(pizza.maxCells, i, j);
+					arbolEvoluciones2.add(evolucionPizza);
 					for (Slice slice : slices) {
-						if(CompruebaRestricciones.comprueba(evolucion, slice, pizza.numIngrdientsPerSlice)){
+						if(CompruebaRestricciones.comprueba(evolucionPizza, slice, pizza.numIngrdientsPerSlice)){
 							EvolucionPizza next = evolucionPizza.clone();
 							next.actualiza(slice);
-							arbolEvoluciones2.add(evolucionPizza);
+							arbolEvoluciones2.add(next);
 						}
-					}
+					}				
 				}
-				arbolEvoluciones = arbolEvoluciones2;				
+				arbolEvoluciones = (ArrayList)arbolEvoluciones2.clone();
 			}			
 		}
 		
+		return maximaPuntuacion(arbolEvoluciones);	
 		
-		
+	}
+	
+	private EvolucionPizza maximaPuntuacion(List<EvolucionPizza> resultados){
+		EvolucionPizza rfinal = resultados.get(0);
+		int puntos = rfinal.damePuntuacion();
+		for (EvolucionPizza evolucionPizza : resultados) {
+			int puntos1 = evolucionPizza.damePuntuacion();
+			if(puntos1 > puntos){
+				rfinal = evolucionPizza;
+				puntos = puntos1;
+			}
+		}
+		return rfinal;
 	}
 }

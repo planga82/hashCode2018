@@ -15,7 +15,7 @@ public class GeneradorSlice {
 			for (int i = 1; i <= maxCells; i++) {
 				for (int j = 1; j <= maxCells; j++) {
 					if(i*j == maxCells) {
-						Slice l = new Slice(i, j, posXIni, posYIni);
+						Slice l = new Slice(posXIni, posYIni,i, j);
 						salida.add(l);
 					}
 				}			
